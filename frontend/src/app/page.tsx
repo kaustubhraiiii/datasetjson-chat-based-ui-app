@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import styles from './page.module.css';
 import DataDisplayComponent from '../components/DataDisplay';
 
-const displayMode='Line'
+const displayMode='Scatter'
 
 const Page: React.FC = () => {
   const [fileUploaded, setFileUploaded] = useState(false);
