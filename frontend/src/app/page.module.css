@@ -1,0 +1,77 @@
+/* src/app/page.module.css */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  margin-top: 0;
+  border: 2px solid lightseagreen;
+  box-sizing: border-box;
+  background-color: lightblue;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: 3rem;
+  color: black;
+  
+}
+
+.container1 {
+  background-color: rgb(182, 232, 182);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid green;
+  height: 60vh;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.container2 {
+  background-color: rgb(154, 154, 154);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  margin-top: 0;
+  border: 2px solid grey;
+  box-sizing: border-box;
+  background-color: white;
+  width: 100%;
+}
+
+.fileInput {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  width: 50%;
+}
+
+.buttonContainer {
+  display: flex; 
+  justify-content: center; 
+  margin-top: 20px;
+}
+
+.roundButton {
+  background-color: lightblue;
+  color: white; 
+  border: none; 
+  border-radius: 15px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.roundButton:hover {
+  background-color: darkseagreen;
+}

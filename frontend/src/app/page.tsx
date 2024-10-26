@@ -1,23 +1,55 @@
-import RootLayout from './layout';
+"use client"; 
 
-export default function Home() {
+import React, { useState } from 'react';
+import styles from './page.module.css';
+import DataDisplayComponent from '../components/DataDisplay';
+
+const displayMode='Scatter'
+
+const Page: React.FC = () => {
+  const [fileUploaded, setFileUploaded] = useState(false);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Perform file validation or parsing here if needed
+      console.log("File uploaded:", file.name);
+      setFileUploaded(true);
+    }
+  };
+
   return (
-    <RootLayout>
-      <div className="flex flex-col">
-        <h2 className="text-2xl font-semibold mb-4"></h2>
-        <div className="flex">
-          {/* Left box (smaller) */}
-          <div className="flex-1 mr-2 bg-gray-200 p-4">
-            <h3 className="text-xl font-semibold">Left Box</h3>
-            <p> Left</p>
-          </div>
-          {/* Right box (larger) */}
-          <div className="flex-2 bg-gray-300 p-4">
-            <h3 className="text-xl font-semibold">Right Box</h3>
-            <p> Right</p>
-          </div>
-        </div>
+    <div>
+      <div className={styles.container}>
+        <h1 className={styles.title}>PatientView.io</h1>
       </div>
-    </RootLayout>
+
+      
+      <div className={styles.container1}>
+        <h2 className={styles.title}>Graph</h2>
+        <DataDisplayComponent displayMode={displayMode} />
+        <p></p>
+      </div>
+
+      <div className={styles.container2}>
+        <p>Upload your json file:</p>
+        <input 
+          type="file"
+          accept=".json"
+          className={styles.fileInput}
+          onChange={handleFileChange}
+        />  
+        {fileUploaded && (
+        <div className={styles.buttonContainer}>
+          <button className={styles.roundButton}>Button 1</button>
+          <button className={styles.roundButton}>Button 2</button>
+          <button className={styles.roundButton}>Button 3</button>
+          <button className={styles.roundButton}>Button 4</button>
+        </div>
+        )}
+      </div>
+    </div>
   );
-}
+};
+
+export default Page;
