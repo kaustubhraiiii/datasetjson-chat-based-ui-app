@@ -1,23 +1,25 @@
-import RootLayout from './layout';
 
-export default function Home() {
+import React from 'react';
+import styles from './page.module.css';
+
+const Page: React.FC = () => {
   return (
-    <RootLayout>
-      <div className="flex flex-col">
-        <h2 className="text-2xl font-semibold mb-4"></h2>
-        <div className="flex">
-          {/* Left box (smaller) */}
-          <div className="flex-1 mr-2 bg-gray-200 p-4">
-            <h3 className="text-xl font-semibold">Left Box</h3>
-            <p> Left</p>
-          </div>
-          {/* Right box (larger) */}
-          <div className="flex-2 bg-gray-300 p-4">
-            <h3 className="text-xl font-semibold">Right Box</h3>
-            <p> Right</p>
-          </div>
-        </div>
+    <div>
+      <div className={styles.container}>
+        <h1 className={styles.title}>PatientView.io</h1>
       </div>
-    </RootLayout>
+      
+      <div className={styles.container1}>
+        <h2 className={styles.title}>Graph</h2>
+        <p></p>
+      </div>
+
+      <div className={styles.container2}>
+        <h2 className={styles.title}>Inputs</h2>
+        <p></p>
+      </div>
+    </div>
   );
-}
+};
+
+export default Page;
