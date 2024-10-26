@@ -2,6 +2,9 @@
 
 import React, { useState } from 'react';
 import styles from './page.module.css';
+import DataDisplayComponent from '../components/DataDisplay';
+
+const displayMode='Line'
 
 const Page: React.FC = () => {
   const [fileUploaded, setFileUploaded] = useState(false);
@@ -20,10 +23,11 @@ const Page: React.FC = () => {
       <div className={styles.container}>
         <h1 className={styles.title}>PatientView.io</h1>
       </div>
-      
+
       
       <div className={styles.container1}>
         <h2 className={styles.title}>Graph</h2>
+        <DataDisplayComponent displayMode={displayMode} />
         <p></p>
       </div>
 
