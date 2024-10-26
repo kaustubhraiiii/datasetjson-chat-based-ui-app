@@ -1,7 +1,7 @@
 // src/app.js
 const express = require('express');
 const bodyParser = require('body-parser');
-const dataRoutes = require('./routes/dataRoutes');
+const dataRoutes = require('./routes/clinicalDataRoutes');
 const userRoutes = require('./routes/userRoutes');
 const { errorHandler } = require('./utils/errorHandler');
 const dotenv = require('dotenv');
