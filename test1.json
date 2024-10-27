@@ -1,0 +1,76 @@
+{
+  "patients": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "age": 30,
+      "gender": "Male",
+      "height_cm": 180,
+      "weight_kg": 75,
+      "blood_pressure": {
+        "systolic": 120,
+        "diastolic": 80
+      },
+      "cholesterol_mg_dl": 190,
+      "blood_sugar_mg_dl": 85,
+      "heart_rate_bpm": 72,
+      "temperature_c": 37.0,
+      "symptoms": ["fatigue", "headache"],
+      "medications": ["Aspirin", "Lisinopril"]
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "age": 45,
+      "gender": "Female",
+      "height_cm": 165,
+      "weight_kg": 68,
+      "blood_pressure": {
+        "systolic": 130,
+        "diastolic": 85
+      },
+      "cholesterol_mg_dl": 220,
+      "blood_sugar_mg_dl": 95,
+      "heart_rate_bpm": 75,
+      "temperature_c": 36.8,
+      "symptoms": ["nausea", "dizziness"],
+      "medications": ["Metformin"]
+    },
+    {
+      "id": 3,
+      "name": "Alice Johnson",
+      "age": 50,
+      "gender": "Female",
+      "height_cm": 160,
+      "weight_kg": 80,
+      "blood_pressure": {
+        "systolic": 140,
+        "diastolic": 90
+      },
+      "cholesterol_mg_dl": 240,
+      "blood_sugar_mg_dl": 110,
+      "heart_rate_bpm": 80,
+      "temperature_c": 37.5,
+      "symptoms": ["chest pain", "shortness of breath"],
+      "medications": ["Statins", "Amlodipine"]
+    },
+    {
+      "id": 4,
+      "name": "Robert Brown",
+      "age": 35,
+      "gender": "Male",
+      "height_cm": 175,
+      "weight_kg": 82,
+      "blood_pressure": {
+        "systolic": 125,
+        "diastolic": 78
+      },
+      "cholesterol_mg_dl": 200,
+      "blood_sugar_mg_dl": 90,
+      "heart_rate_bpm": 70,
+      "temperature_c": 36.6,
+      "symptoms": ["none"],
+      "medications": []
+    }
+  ]
+}

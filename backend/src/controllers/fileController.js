@@ -1,49 +1,47 @@
 // backend/src/controllers/fileController.js
 
-const { parseAndSaveData } = require('../services/dataService');
-const sql = require('mssql');
+const dataService = require('../services/dataService');
 
-// Upload file function
-async function uploadFile(req, res, next) {
+// Upload a file and save its data to the Azure SQL Database
+const uploadFile = async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ error: 'File is required' });
-    }
-
+    // Parse the JSON file
     const jsonData = JSON.parse(req.file.buffer.toString());
-    const result = await parseAndSaveData(jsonData);
 
-    res.status(200).json(result);
-  } catch (err) {
-    next(err);
+    // Save the parsed data to the database using dataService
+    const saveResult = await dataService.parseAndSaveData(jsonData);
+    res.status(200).json(saveResult);
+  } catch (error) {
+    console.error('Error in file upload:', error);
+    res.status(500).json({ message: 'File upload and data save error', error });
   }
-}
+};
 
-// Get files function
-async function getFiles(req, res, next) {
+// Retrieve all available files or parameters stored
+const getFiles = async (req, res) => {
   try {
-    // Establish a connection to the Azure SQL database
-    const pool = await sql.connect({
-      user: process.env.DB_USER || 'kaust',
-      password: process.env.DB_PASSWORD || 'biohack_1234',
-      server: process.env.DB_SERVER || 'datasetjson-server.database.windows.net',
-      database: process.env.DB_NAME || 'jsondataset-db',
-      options: {
-        encrypt: true,
-        enableArithAbort: true,
-      },
-    });
-
-    // Query to retrieve all files from the ClinicalData table
-    const result = await pool.request()
-      .query('SELECT * FROM ClinicalData');
-
-    // Send the retrieved files as a response
-    res.status(200).json(result.recordset); // `result.recordset` contains the query results
-  } catch (err) {
-    console.error('Error fetching files:', err);
-    next(err); // Pass the error to the error handler middleware
+    const files = await dataService.getAllFiles(); // Fetch files or parameters
+    res.status(200).json({ files });
+  } catch (error) {
+    console.error('Error fetching files:', error);
+    res.status(500).json({ message: 'Error retrieving files', error });
   }
-}
+};
 
-module.exports = { uploadFile, getFiles }; // Ensure both functions are exported
+// Fetch data for a specific parameter from the database
+const getParameterData = async (req, res) => {
+  const { parameter } = req.query;
+  try {
+    const data = await dataService.getDataByParameter(parameter);
+    res.status(200).json({ data });
+  } catch (error) {
+    console.error('Error fetching parameter data:', error);
+    res.status(500).json({ message: 'Error fetching parameter data', error });
+  }
+};
+
+module.exports = {
+  uploadFile,
+  getFiles,
+  getParameterData,
+};

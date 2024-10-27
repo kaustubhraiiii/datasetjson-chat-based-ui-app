@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import styles from './page.module.css';
 import DataDisplayComponent from '../components/DataDisplay';
 
-const displayMode='Line'
+const displayMode = 'Line';
 
 const Page: React.FC = () => {
   const [fileUploaded, setFileUploaded] = useState(false);
-  const [parameters, setParameters] = useState<string[]>([])
+  const [parameters, setParameters] = useState<string[]>([]);
+  const [selectedData, setSelectedData] = useState<any | null>(null);
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -17,28 +18,27 @@ const Page: React.FC = () => {
       formData.append('file', file);
 
       try {
-        const response = await fetch('http://localhost:3001', {
-           // Update to your backend URL
+        const response = await fetch('http://localhost:3001/api/files/upload', {
           method: 'POST',
           body: formData,
-      });
+        });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Uploaded parameters:", data);
-        setParameters(Object.keys(data.data));
-        setFileUploaded(true);
-        // Use parsed data from backend
-      } else {
-        console.error("File upload failed.");
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Uploaded parameters:", data);
+          setParameters(data.parameters);  // Now this is an array of keys from the first patient object
+          setFileUploaded(true);
+        } else {
+          const errorData = await response.json();
+          console.error("File upload failed:", errorData);
+        }
+      } catch (error) {
+        console.error("Error uploading file:", error);
       }
-    } catch (error) {
-      console.error("Error uploading file:", error);
+    } else {
+      alert("Please upload a valid JSON file.");
     }
-  } else {
-    alert("Please upload a valid JSON file.");
-  }
-};
+  };
 
   return (
     <div>
@@ -46,13 +46,9 @@ const Page: React.FC = () => {
         <h1 className={styles.title}>PatientView.io</h1>
       </div>
 
-      
       <div className={styles.container1}>
-        <h2 className={styles.title}>Graph</h2>
-        <DataDisplayComponent displayMode={displayMode} />
         <h2 className={styles.heading}>Visualization</h2>
-        <DataDisplayComponent displayMode={displayMode}/>
-        <p></p>
+        <DataDisplayComponent displayMode={displayMode} />
       </div>
 
       <div className={styles.container2}>
@@ -66,7 +62,7 @@ const Page: React.FC = () => {
         />
         <button
           className={styles.customFileButton}
-          onClick={() => document.getElementById("fileInput").click()}
+          onClick={() => document.getElementById("fileInput")?.click()}
         >
           Choose File
         </button>
