@@ -1,22 +1,12 @@
-// backend/src/app.js
+// backend/src/routes/fileRoutes.js
 
 const express = require('express');
-const cors = require('cors');
-const fileRoutes = require('./routes/fileRoutes');
-const errorHandler = require('./utils/errorHandler');
-const { connectToDatabase } = require('./dbConfig');
+const { uploadFile, getFiles } = require('../controllers/fileController'); // Ensure the path is correct
 
-const app = express();
+const router = express.Router();
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Define your routes
+router.post('/upload', uploadFile); // Handle file uploads
+router.get('/', getFiles); // Get all files
 
-// Routes
-app.use('/api/files', fileRoutes);
-
-// Error handling middleware
-app.use(errorHandler);
-
-module.exports = app;
+module.exports = router; // Export the router

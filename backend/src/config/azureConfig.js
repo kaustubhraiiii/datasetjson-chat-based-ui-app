@@ -1,33 +1,25 @@
 const sql = require('mssql');
-const dotenv = require('dotenv');
 
-
-dotenv.config();
-
-const sqlConfig = {
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    server: process.env.DB_SERVER,
-    options: {
-        encrypt: true,
-        enableArithAbort: true
-    }
+const config = {
+  user: process.env.DB_USER || 'kaust',
+  password: process.env.DB_PASSWORD || 'biohack_1234',
+  server: process.env.DB_SERVER || 'datasetjson-server.database.windows.net',
+  database: process.env.DB_NAME || 'jsondataset-db',
+  options: {
+    encrypt: true,
+    enableArithAbort: true,
+  },
 };
 
-const poolPromise = new sql.ConnectionPool(sqlConfig)
-    .connect()
-    .then(pool => {
-        console.log('Connected to Azure SQL');
-        return pool;
-    })
-    .catch(err => {
-        console.error('Database connection failed: ', err);
-        process.exit(1);
-    });
+async function connectToDatabase() {
+  try {
+    const pool = await sql.connect(config);
+    console.log('Connected to Azure SQL Database');
+    return pool;
+  } catch (error) {
+    console.error('Database connection error:', error);
+    throw error;
+  }
+}
 
-module.exports = {
-    sql,
-    poolPromise
-};
-
+module.exports = { connectToDatabase };
