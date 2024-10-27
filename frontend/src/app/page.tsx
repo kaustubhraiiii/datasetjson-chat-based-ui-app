@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import styles from './page.module.css';
 import DataDisplayComponent from '../components/DataDisplay';
 
-const displayMode='Scatter'
+const displayMode='Line'
 
 const Page: React.FC = () => {
   const [fileUploaded, setFileUploaded] = useState(false);
@@ -26,19 +26,26 @@ const Page: React.FC = () => {
 
       
       <div className={styles.container1}>
-        <h2 className={styles.title}>Graph</h2>
-        <DataDisplayComponent displayMode={displayMode} />
+        <h2 className={styles.heading}>Visualization</h2>
+        <DataDisplayComponent displayMode={displayMode}/>
         <p></p>
       </div>
 
       <div className={styles.container2}>
-        <p>Upload your json file:</p>
+        <p>Upload your Dataset JSON v1.1 file:</p>
         <input 
           type="file"
           accept=".json"
+          id="fileInput"
           className={styles.fileInput}
           onChange={handleFileChange}
-        />  
+        />
+        <button
+          className={styles.customFileButton}
+          onClick={() => document.getElementById("fileInput").click()}
+        >
+          Choose File
+        </button>
         {fileUploaded && (
         <div className={styles.buttonContainer}>
           <button className={styles.roundButton}>Button 1</button>

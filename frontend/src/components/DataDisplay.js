@@ -3,10 +3,13 @@
 "use client"; // Add this line at the top
 
 import React, { useState, useEffect } from 'react';
+import styles from '../app/page.module.css';
+
 import PieChart from './PieChart';
 import ScatterChart from './ScatterChart';
 import BarChart from './BarChart'; 
 import LineChart from './LineChart'; // Ensure these components are properly defined and exported
+
 
 const data = [
     { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
@@ -59,9 +62,8 @@ const DataDisplayComponent = ({ displayMode }) => {
     }
 
     return (
-        <div className="data-display">
-            <h2>Data Display</h2>
-            <div className="display-content">
+        <div className={styles.datadisplay}>
+            <div className={styles.displaycontent}>
                 {/* Render based on display mode */}
                 {displayMode === 'Bar' && <BarChart data={dataState} />}
                 {displayMode === 'Line' && <LineChart data={dataState} />}

@@ -1,77 +1,128 @@
-/* src/app/page.module.css */
+/* page.module.css */
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10vh;
-  margin-top: 0;
-  border: 2px solid lightseagreen;
-  box-sizing: border-box;
-  background-color: lightblue;
-  width: 100%;
-  margin-bottom: 10px;
+  height: 100px;
+  background: linear-gradient(135deg, #6e8efb, #a77bff);
+  color: white;
+  border-radius: 10px;
+  margin: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px; /* Add padding for smaller screens */
 }
 
 .title {
-  font-size: 3rem;
-  color: black;
-  
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
 }
 
-.container1 {
-  background-color: rgb(182, 232, 182);
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  box-sizing: border-box;
-  border: 2px solid green;
-  height: 60vh;
-  align-items: center;
-  margin-bottom: 10px;
+.header {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.container1{
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+  padding: 20px;
+  margin: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .container2 {
-  background-color: rgb(154, 154, 154);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 30vh;
-  margin-top: 0;
-  border: 2px solid grey;
-  box-sizing: border-box;
-  background-color: white;
-  width: 100%;
+  text-align: center;
+  padding: 20px;
+  margin: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .fileInput {
-  margin-top: 10px;
-  padding: 10px;
+  display: None;
+}
+
+.customFileButton {
+  background-color: #6e8efb; /* Button color */
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  cursor: pointer;
   font-size: 1rem;
-  border: 1px solid lightgray;
-  border-radius: 4px;
-  width: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.datadisplay {
+  border: 2px solid #6e8efb; /* Border color */
+  border-radius: 10px; /* Rounded corners */
+  padding: 15px; /* Padding inside the border */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  background-color: #fff; /* Optional background */}
+
+.customFileButton:hover {
+  background-color: #a77bff;
 }
 
 .buttonContainer {
-  display: flex; 
-  justify-content: center; 
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap */
+  justify-content: space-around;
   margin-top: 20px;
 }
 
 .roundButton {
-  background-color: lightblue;
-  color: white; 
-  border: none; 
-  border-radius: 15px;
+  background-color: #6e8efb;
+  color: white;
+  border: none;
+  border-radius: 25px;
   padding: 10px 20px;
-  margin: 0 10px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
+  flex: 1 1 100px; /* Allow buttons to grow and shrink */
+  margin: 5px; /* Spacing between buttons */
 }
 
 .roundButton:hover {
-  background-color: darkseagreen;
+  background-color: #a77bff;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem; /* Smaller font on smaller screens */
+  }
+  
+  .container {
+    flex-direction: column; /* Stack elements vertically */
+    height: auto; /* Allow height to adjust */
+  }
+
+  .buttonContainer {
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center buttons */
+  }
+
+  .roundButton {
+    width: 100%; /* Full width for buttons on small screens */
+    max-width: 300px; /* Limit button width */
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem; /* Even smaller font for very small screens */
+  }
+
+  .fileInput {
+    max-width: 90%; /* More width for input on small screens */
+  }
 }
