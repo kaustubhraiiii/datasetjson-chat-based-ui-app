@@ -1,31 +1,25 @@
-// src/app.js
-const express = require('express');
-const bodyParser = require('body-parser');
-const dataRoutes = require('./routes/clinicalDataRoutes');
-const userRoutes = require('./routes/userRoutes');
-const { errorHandler } = require('./utils/errorHandler');
-const dotenv = require('dotenv');
+// backend/src/app.js
 
-// Load environment variables from .env file
-dotenv.config(); 
+const express = require('express');
+const fileRoutes = require('./routes/fileRoutes');
 
 const app = express();
 
-// Middleware setup
-app.use(bodyParser.json());
+// Middleware to parse JSON
+app.use(express.json());
 
-// Route definitions
+// Define the route for the root
 app.get('/', (req, res) => {
-  res.send('Welcome to the API! Use /api/data or /api/user to access specific routes.');
+  res.send('Welcome to the Clinical Data Interaction Platform API!');
 });
 
-app.use('/api/data', dataRoutes);
-app.use('/api/user', userRoutes);
+// Use file routes
+app.use('/api/files', fileRoutes);
 
-// Error handling middleware
-app.use(errorHandler);
+// Handle 404 errors for unmatched routes
+app.use((req, res) => {
+  res.status(404).send('404 Not Found');
+});
 
-// Export the app to be used in server.js
+// Export the app for use in server.js
 module.exports = app;
-
-

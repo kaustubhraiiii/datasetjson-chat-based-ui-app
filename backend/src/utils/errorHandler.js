@@ -1,10 +1,8 @@
 // backend/src/utils/errorHandler.js
 
-const errorHandler = (err, req, res, next) => {
+function errorHandler(err, req, res, next) {
   console.error(err.stack);
-  res.status(err.status || 500).json({
-      message: err.message || 'Internal Server Error',
-  });
-};
+  res.status(500).json({ error: err.message || 'An unknown error occurred' });
+}
 
 module.exports = errorHandler;
