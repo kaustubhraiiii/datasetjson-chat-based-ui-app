@@ -8,15 +8,37 @@ const displayMode='Line'
 
 const Page: React.FC = () => {
   const [fileUploaded, setFileUploaded] = useState(false);
+  const [parameters, setParameters] = useState<string[]>([])
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Perform file validation or parsing here if needed
-      console.log("File uploaded:", file.name);
-      setFileUploaded(true);
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await fetch('http://localhost:3001', {
+           // Update to your backend URL
+          method: 'POST',
+          body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Uploaded parameters:", data);
+        setParameters(Object.keys(data.data));
+        setFileUploaded(true);
+        // Use parsed data from backend
+      } else {
+        console.error("File upload failed.");
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error);
     }
-  };
+  } else {
+    alert("Please upload a valid JSON file.");
+  }
+};
 
   return (
     <div>
@@ -26,6 +48,8 @@ const Page: React.FC = () => {
 
       
       <div className={styles.container1}>
+        <h2 className={styles.title}>Graph</h2>
+        <DataDisplayComponent displayMode={displayMode} />
         <h2 className={styles.heading}>Visualization</h2>
         <DataDisplayComponent displayMode={displayMode}/>
         <p></p>
@@ -47,12 +71,13 @@ const Page: React.FC = () => {
           Choose File
         </button>
         {fileUploaded && (
-        <div className={styles.buttonContainer}>
-          <button className={styles.roundButton}>Button 1</button>
-          <button className={styles.roundButton}>Button 2</button>
-          <button className={styles.roundButton}>Button 3</button>
-          <button className={styles.roundButton}>Button 4</button>
-        </div>
+          <div className={styles.buttonContainer}>
+            {parameters.map((param, index) => (
+              <button key={index} className={styles.roundButton}>
+                {param}
+              </button>
+            ))}
+          </div>
         )}
       </div>
     </div>
